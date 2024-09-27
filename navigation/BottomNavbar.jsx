@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Chat from '../screens/Chat';
 import Profile from '../screens/Profile';
 import Conversation from '../screens/Conversation';
-import Notification from '../screens/Notification'; // Import your notification screen
+import Notification from '../screens/Notification';
 import Home from '../screens/Home';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
@@ -14,7 +14,6 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// Stack navigator for the Chat screens
 const ChatStackNavigator = ({ navigation, route }) => {
   React.useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
@@ -30,15 +29,15 @@ const ChatStackNavigator = ({ navigation, route }) => {
       <Stack.Screen
         name="ChatList"
         component={Chat}
-        options={{ headerShown: false }} // Hide the header for the chat list screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Conversation"
         component={Conversation}
         options={({ route }) => ({
           title: route.params.chatName,
-          headerShown: true, // Show header with chat name
-          presentation: 'card', // Present screen with a card-style transition
+          headerShown: true,
+          presentation: 'card',
         })}
       />
     </Stack.Navigator>
@@ -47,11 +46,11 @@ const ChatStackNavigator = ({ navigation, route }) => {
 
 const BottomNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const translateY = useSharedValue(150); // Start with the menu hidden below the screen
+  const translateY = useSharedValue(150);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    translateY.value = withTiming(isMenuOpen ? 150 : 0, { duration: 300 }); // Show when clicked, hide when clicked again
+    translateY.value = withTiming(isMenuOpen ? 150 : 0, { duration: 300 });
   };
 
   const menuStyle = useAnimatedStyle(() => ({

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { firebase } from '../api/firebaseConfig'; // Make sure firebase is correctly configured
+import { firebase } from '../api/firebaseConfig';
 
 const Profile = () => {
   const [profilePicture, setProfilePicture] = useState(null);

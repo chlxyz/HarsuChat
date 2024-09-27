@@ -44,7 +44,6 @@ const ChatStackNavigator = ({ navigation, route }) => {
   );
 };
 
-// Main Bottom Navigation Bar
 const BottomNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const translateY = useSharedValue(150);

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Image, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { firebase } from '../api/firebaseConfig';
 
 const Register = ({ navigation }) => {
@@ -23,14 +22,7 @@ const Register = ({ navigation }) => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center bg-white p-4">
-      <TouchableOpacity 
-        style={{ position: 'absolute', top: 40, left: 16 }}
-        onPress={() => navigation.navigate('SelectAuth')}
-      >
-        <Ionicons name="arrow-back" size={24} color="black" />
-      </TouchableOpacity>
-      
+    <View className="flex-1 justify-center items-center bg-white p-4">     
       <Text style={{ fontSize: 24, marginBottom: 16, textAlign: 'center' }}>Register!</Text>
       <Image style={{ width: 240, height: 240, marginBottom: 24 }} source={require('../assets/register.png')} />
       

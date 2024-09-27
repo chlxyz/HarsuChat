@@ -11,9 +11,9 @@ const ChatButton = () => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center bg-gray-100 p-6">
+    <View className="flex-1 justify-center items-center bg-red-950 p-6 rounded-t-3xl">
       <View className="mb-10">
-        <Text className="text-2xl text-center text-gray-800 font-semibold leading-relaxed">
+        <Text className="text-2xl text-center text-white font-semibold leading-relaxed">
           Chat is available for those working in Japan, providing a platform for participants of LPK (Lembaga Penyaluran Kerja) to communicate and collaborate.
         </Text>
       </View>

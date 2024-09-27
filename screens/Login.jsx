@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Image, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { firebase } from '../api/firebaseConfig';
 
 const Login = ({ navigation }) => {
@@ -17,13 +16,6 @@ const Login = ({ navigation }) => {
 
   return (
     <View className="flex-1 justify-center items-center bg-white p-4">
-      <TouchableOpacity 
-        className="absolute top-10 left-4"
-        onPress={() => navigation.navigate('SelectAuth')}
-      >
-        <Ionicons name="arrow-back" size={24} color="black" />
-      </TouchableOpacity>
-      
       <Text className="text-2xl mb-4 text-center">Login!</Text>
       <Image className="w-60 h-60 mb-6 self-center" source={require('../assets/login.png')} />
       <View className="bg-slate-500 p-8 rounded-3xl w-full">

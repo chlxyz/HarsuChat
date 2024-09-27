@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Notification = () => {
   const Notifs = [

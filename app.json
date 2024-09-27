@@ -1,4 +1,7 @@
 {
   "name": "HarsuChat",
-  "slug": "HarsuChat"
+  "slug": "HarsuChat",
+  "plugins": [
+    "expo-font"
+  ]
 }

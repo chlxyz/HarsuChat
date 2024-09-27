@@ -65,17 +65,6 @@ const Carousel = () => {
         style={{ width: '95%', height: 250, borderRadius: 15 }}
         resizeMode="cover"
       />
-      <View style={{
-        position: 'absolute',
-        bottom: 20,
-        left: 20,
-        right: 20,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        borderRadius: 10,
-        padding: 10
-      }}>
-        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>{item.title}</Text>
-      </View>
     </View>
   );
 

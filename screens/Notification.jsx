@@ -27,7 +27,7 @@ const Notification = () => {
   const renderItem = ({ item }) => {
     return (
       <View className="p-4 mb-4 bg-white rounded-lg shadow flex-row">
-        <Image source={require ('../assets/user2.jpg')} className="h-[40px] w-[40px]"/>
+        <Image source={require ('../assets/user2.jpg')} className="h-[40px] w-[40px] rounded-full mr-2 "/>
         <View className="flex-1 flex-col">
             <View className="flex-1 flex-row justify-between">
                 <Text className="font-bold text-lg">{item.sender} {item.title}</Text>
@@ -43,7 +43,7 @@ const Notification = () => {
   };
 
   return (
-    <View className="flex-1 pt-5 px-5">
+    <View className="flex-1 pt-5 px-2">
       <FlatList
         data={Notifs}
         renderItem={renderItem}

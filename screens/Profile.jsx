@@ -1,28 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { firebase } from '../api/firebaseConfig';
+import { firebase } from '../api/firebaseConfig'; // Make sure firebase is correctly configured
 
 const Profile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [nickname, setNickname] = useState('');
   const [realName, setRealName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const userId = 'someUserId';
 
   useEffect(() => {
     const fetchProfile = async () => {
+      setIsLoading(true);
       try {
-        const userDoc = await firebase.firestore().collection('users').doc(userId).get(); // Fetch user document
+        const userDoc = await firebase.firestore().collection('users').doc(userId).get();
+        const currentUser = firebase.auth().currentUser;
+
         if (userDoc.exists) {
           const userData = userDoc.data();
           setNickname(userData.nickname || '');
           setRealName(userData.realName || '');
           setProfilePicture(userData.profilePicture || null);
+          setEmail(currentUser.email || '');
         } else {
           Alert.alert('Profile not found');
         }
       } catch (error) {
         Alert.alert('Error fetching profile', error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -41,6 +50,44 @@ const Profile = () => {
       setProfilePicture(result.assets[0].uri);
     }
   };
+
+  const saveProfile = async () => {
+    setIsLoading(true);
+    try {
+      await firebase.firestore().collection('users').doc(userId).set(
+        {
+          nickname,
+          realName,
+          profilePicture,
+        },
+        { merge: true }
+      );
+
+      const currentUser = firebase.auth().currentUser;
+      if (currentUser) {
+        if (email !== currentUser.email) {
+          await currentUser.updateEmail(email);
+        }
+        if (password) {
+          await currentUser.updatePassword(password);
+        }
+      }
+
+      Alert.alert('Profile updated successfully');
+    } catch (error) {
+      Alert.alert('Error updating profile', error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" color="#00ff00" />
+      </View>
+    );
+  }
 
   return (
     <View className="flex-1 bg-gray-100 p-5 items-center">
@@ -76,7 +123,35 @@ const Profile = () => {
         />
       </View>
 
-      <TouchableOpacity className="bg-green-500 py-3 px-16 rounded-full mt-5">
+      <View className="w-full mb-5">
+        <Text className="text-lg text-gray-800 mb-1">Email</Text>
+        <TextInput
+          className="bg-white border border-gray-200 rounded-lg p-3 text-base text-gray-800"
+          placeholder="Enter your email"
+          placeholderTextColor="#A9A9A9"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+      </View>
+
+      <View className="w-full mb-5">
+        <Text className="text-lg text-gray-800 mb-1">Password</Text>
+        <TextInput
+          className="bg-white border border-gray-200 rounded-lg p-3 text-base text-gray-800"
+          placeholder="Enter your new password"
+          placeholderTextColor="#A9A9A9"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+      </View>
+
+      <TouchableOpacity
+        onPress={saveProfile}
+        className="bg-green-500 py-3 px-16 rounded-full mt-5"
+      >
         <Text className="text-white text-lg">Save Profile</Text>
       </TouchableOpacity>
     </View>

@@ -7,7 +7,7 @@ import Profile from '../screens/Profile';
 import Conversation from '../screens/Conversation';
 import Notification from '../screens/Notification';
 import Home from '../screens/Home';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
@@ -44,6 +44,7 @@ const ChatStackNavigator = ({ navigation, route }) => {
   );
 };
 
+// Main Bottom Navigation Bar
 const BottomNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const translateY = useSharedValue(150);
@@ -58,54 +59,39 @@ const BottomNavBar = () => {
   }));
 
   return (
-    <>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            }
-            else if (route.name === 'Chat') {
-              iconName = focused ? 'chatbubble' : 'chatbubble-outline';
-            } else if (route.name === 'Profile') {
-              iconName = focused ? 'person' : 'person-outline';
-            } else if (route.name === 'Notification') {
-              iconName = focused ? 'notifications' : 'notifications-outline';
-            }
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Chat') {
+            iconName = focused ? 'chatbubble' : 'chatbubble-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
+          } else if (route.name === 'Notification') {
+            iconName = focused ? 'notifications' : 'notifications-outline';
+          }
 
-            return <Icon name={iconName} size={size} color={color} />;
-          },
-          tabBarLabel: () => null,
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'gray',
-          tabBarStyle: {
-            height: 60,
-            paddingTop: 10,
-            paddingBottom: 10,
-            justifyContent: 'center',
-          },
-        })}
-      >
-        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
-        <Tab.Screen name="Chat" component={ChatStackNavigator} options={{ headerShown: false }}/>
-        <Tab.Screen
-          name="NewChatButton"
-          component={() => null}
-          options={{
-            tabBarButton: () => (
-              <TouchableOpacity style={styles.centerButton} onPress={toggleMenu}>
-                <Icon name={isMenuOpen ? 'close' : 'add'} size={24} color="white" />
-                <Text style={styles.centerButtonText}>New Chat</Text>
-              </TouchableOpacity>
-            ),
-          }}
-        />
-        <Tab.Screen name="Notification" component={Notification} options={{ headerShown: false }}/>
-        <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }}/>
-      </Tab.Navigator>
-    </>
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarLabel: () => null,
+        tabBarActiveTintColor: 'black',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          height: 60,
+          paddingTop: 10,
+          paddingBottom: 10,
+          justifyContent: 'center',
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Tab.Screen name="Chat" component={ChatStackNavigator} options={{ headerShown: false }} />
+      <Tab.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+    </Tab.Navigator>
   );
 };
 
